@@ -2,28 +2,27 @@
 
 ## 📄 Arquivo: `main.py`
 
-Este script é muito simples. Seu objetivo é perguntar o nome do usuário e depois saudá-lo, imprimindo seu nome todo em letras maiúsculas.
+Script simples que pede o nome do usuário e imprime uma saudação com o nome em letras maiúsculas.
 
 ### Explicação Linha por Linha:
 
 ```python
 def main():
 ```
-Define a função principal, chamada `main()`. Isso serve para organizar melhor o nosso código, em vez de deixar instruções soltas por todo o arquivo.
+Define a função principal do programa. Usar uma função `main()` é uma boa prática para organizar o código.
 
 ```python
     nome = input("Qual é o seu nome? ")
 ```
-Usamos a função `input()` para mostrar uma mensagem na tela e esperar que a pessoa digite algo. Tudo o que for digitado será guardado na nossa variável chamada `nome`.
+Exibe uma mensagem na tela e aguarda o usuário digitar algo. O valor digitado fica salvo na variável `nome`.
 
 ```python
     print(f"Olá, {nome.upper()}!")
 ```
-Usamos a função `print()`. Ao colocar um `f` no início (`f"..."`), indicamos ao Python que injetaremos variáveis reais dentro do texto usando as chaves `{}`.
-O comando `.upper()` transforma o texto que havia em `nome` para letras puramente MAIÚSCULAS antes de imprimir a saudação final.
+Imprime a saudação. O `f"..."` é uma f-string, que permite inserir variáveis diretamente no texto usando `{}`. O método `.upper()` converte o nome para letras maiúsculas antes de exibir.
 
 ```python
 if __name__ == "__main__":
     main()
 ```
-Esta é a convenção básica do Python. Ela avalia se este arquivo está sendo executado de forma principal (por exemplo, a partir do terminal). Se for o caso, manda executar as instruções que preparamos na função `main()`.
+Essa é uma convenção padrão do Python. Ela garante que a função `main()` só será chamada quando o arquivo for executado diretamente pelo terminal, e não quando for importado por outro script.

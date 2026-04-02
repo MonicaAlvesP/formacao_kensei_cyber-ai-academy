@@ -2,7 +2,7 @@
 
 ## 📄 Arquivo: `gerador_senhas.py`
 
-Um script robusto que usa a biblioteca `random` e `string` do Python, para fabricar uma senha muito mais fortificada. Tudo re-apto em cima das opções do usuário: variando níveis, incluindo só números ou os símbolos difíceis misturados ao sabor do freguês.
+Script que gera senhas seguras e personalizadas. O usuário escolhe o tamanho da senha e se quer incluir letras maiúsculas, números e símbolos. O programa usa as bibliotecas nativas `random` e `string` do Python para montar a senha.
 
 ### Explicação Linha por Linha:
 
@@ -10,12 +10,12 @@ Um script robusto que usa a biblioteca `random` e `string` do Python, para fabri
 import random
 import string
 ```
-Trazemos (importamos) bibliotecas embutidíssimas nativas de fábrica. `random` fará da sorte para lançar suas engrenagens na mágica do azar randômico. E do lado irmão `string` traremos o conforto extra dos abecedários textuais já empacotados globalmente prontos ali mesmo, em vez da velha história de escrever manualmente teclinha com teclas inteiras de fato "a,b,c".
+Importa duas bibliotecas nativas do Python. `random` é usada para fazer escolhas aleatórias, e `string` fornece conjuntos de caracteres prontos (letras, números, símbolos), sem precisar digitá-los manualmente.
 
 ```python
 def gerar_senha():
 ```
-Estabelece a função central principal que alojará perante este arquivo a elaborada estrutura que desdobra todos os questionários dos mistérios propostos e da costura computacional interna.
+Define a função principal que contém toda a lógica do gerador de senhas.
 
 ```python
     try:
@@ -27,43 +27,40 @@ Estabelece a função central principal que alojará perante este arquivo a elab
         print("Valor inválido. Usando o tamanho padrão de 12 caracteres.")
         tamanho = 12
 ```
-Abertamente nós perguntamos da imensidão total requerida através do `input()`. Uma caçada matemática que pedimos de inteiros convertidos à força pra garantir pela blindagem que ninguém trapaceie textualmente de fora pra dentro causando a infame `ValueError` nos derrubando se fosse a limpo; salvando esse crasheo por resgatar em um pacote defensual de base 12 sem pestanejar caindo pra salvação alternativa programada.
+Pede o tamanho da senha ao usuário e converte a resposta para inteiro com `int()`. Se o usuário digitar letras em vez de números, o `int()` gera um `ValueError`, que é capturado pelo `except` — e o programa usa 12 como valor padrão. Se o número for menor que 1, ajusta automaticamente para 8.
 
 ```python
     incluir_maiusculas = input("Incluir letras maiúsculas? (S/N): ").strip().upper() == 'S'
 ```
-Indagamos por níveis de sofisticações com questionamentos simplificados `(S ou N)`.
-1. Fritamos purezas ou escapes digitados erroneamente (por desleixo) tirados fora do campo por um `.strip()`. 
-2. Reduzimos ao escopo simplificado global convertendo ele em grande escala ao maiúsculo num varre final por `.upper()`.
-3. Comparamos estrito pro avaliamento (`== 'S'`) em suma condensando e transmutando seu próprio resultado da validação final para sua matriz num puro verídico Booleano Real `True` ou então `False`.
+Pergunta ao usuário se quer incluir maiúsculas. O `.strip()` remove espaços extras, o `.upper()` converte para maiúscula, e a comparação `== 'S'` retorna `True` ou `False` — esse resultado fica salvo na variável `incluir_maiusculas`.
 
 ```python
     caracteres = list(string.ascii_lowercase)
     senha_obrigatoria = [random.choice(string.ascii_lowercase)]
 ```
-De cara base pegamos de um pulmo total das minúsculas textuais vindouras da importação (`string.ascii_lowercase`) e lhes convertemos com unísono na maleável mutação Listada ao array totalizante chamado `caracteres`. Garantidamente tiramos forçadamente 1 mínimo fortuito letra dessas (.choice) por via da sorte imposta e fixados na sacola de itens da array vital obrigados a estarem no meio pro nosso array provisório temporário: `senha_obrigatoria`.
+Cria a lista base de caracteres disponíveis, começando pelas letras minúsculas (`string.ascii_lowercase`). Também garante que, desde o início, ao menos uma letra minúscula seja incluída na senha usando `random.choice()`.
 
 ```python
     if incluir_maiusculas:
         caracteres.extend(list(string.ascii_uppercase))
         senha_obrigatoria.append(random.choice(string.ascii_uppercase))
 ```
-Dos retornos avaliados afirmativos e condicionais batidos do (`True`). Fritamos na mescla a velha varredura e colamos a fileira adicional em seu pote grandão baseando `.extend()` à totalização global agregada (letras grandes por exemplo alocadas no caldeirão total). De fato do mesmo jeitinho pegando também já a imposição da obrigatoriedade tirada fortuita, adicionadas a fila dos segurados `senha_obrigatoria` num belíssimo preenchimento no fim de seu armário `.append()`. 
+Se o usuário pediu maiúsculas, adiciona as letras maiúsculas ao pool de caracteres com `.extend()`, e garante que ao menos uma delas apareça na senha com `.append()`.
 
 ```python
     tamanho_restante = tamanho - len(senha_obrigatoria)
     for _ in range(tamanho_restante):
         senha_obrigatoria.append(random.choice(caracteres))
 ```
-Restrita de sua meta visual ideal em que pediu, retiramos fora já do bolo total as fatias pré-agendadas já capturadas nos obrigações da array supracitado avaliadas por um `len()`. Lançamos um sorteio do sorteio em cima dos totais predeterminados até a morte final de contagens com as repetentes laçadas (`for`) a partir de cima dos fundos totais (`caracteres` com ou sem numericos) preenchendo todos buracos dos retiros que lhe alçam aleatórios da engrenagem. 
+Calcula quantos caracteres ainda faltam para atingir o tamanho pedido (descontando os que já foram adicionados como obrigatórios). O `for` preenche o restante com caracteres escolhidos aleatoriamente do pool disponível.
 
 ```python
     random.shuffle(senha_obrigatoria)
     senha_final = "".join(senha_obrigatoria)
 ```
-Dado dos incrustes de minúsculo ficado agindo do jeito forçoso no limiar superior, baralhamos perfeitamente de forma brutal qual copo sacudindo no `.shuffle()`. Em uma tacada imortal, colamos dos pedaços flutuantes a unificação do encadeamento por vazio espaçal textual em cima do final via a junta `" "(nada).join(do listório de embaralhamentos)`. Uma formidável e fortíssima parede das muralhas resultantes textuais numa fila limpa e pronta pro estocada string global.
+O `.shuffle()` embaralha a lista de caracteres para que os obrigatórios não fiquem sempre na mesma posição. O `.join()` une todos os caracteres da lista em uma única string, formando a senha final.
 
 ```python
     print(f"Sua senha gerada: {senha_final}")
 ```
-Expurgamos brilhando num último retorno em terminal impresso da preciosidade a enaltecer-se. O ciclo de utilidade chegou perfeitamente as ordens e comandos visualmente na caçada centralizando o script ao main de rodada das vias finais.
+Exibe a senha gerada para o usuário.
